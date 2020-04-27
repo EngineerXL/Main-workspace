@@ -46,10 +46,11 @@ list* pop(list* it){
 	if(empty(it)) return NULL;
 	list* begin=it;
 	while(it->next!=begin) it=it->next;
+	list* end=it;
 	if(it==begin) return NULL;
 	it->next=begin->next;
 	free(begin);
-	return it;
+	return end->next;
 }
 
 list* insert(list* lst, int p, int reval, int imval){
@@ -78,6 +79,27 @@ void print(list* lst, list* it){
 	else printf("%d+%di\n", lst->re, lst->im);
 }
 
+void swap(list** lst, list** it){
+	if(empty(*lst)) return;
+	list* begin=*lst;
+	int n=len(*lst);
+	while((*lst)->next!=begin) *lst=(*lst)->next;
+	begin=(*lst)->next->next;	
+	for(int i=0; i<n/2; i++){
+		list* elem1=(*lst)->next;
+		list* elem2=(*lst)->next->next;
+		if(*it==elem1 || *it==elem2){
+			if(*it==elem1) *it=elem2;
+			else *it=elem1;
+		}
+		(*lst)->next=elem2;
+		elem1->next=elem2->next;
+		elem2->next=elem1;
+		*lst=(*lst)->next->next;
+	}
+	*lst=begin;
+}
+
 signed main(){
 	list* lst=NULL;
 	list* it=lst;
@@ -93,13 +115,17 @@ signed main(){
 		}
 		if(c=='l') printf("%d\n", len(lst));
 		if(c=='p'){
-			if(lst==it) lst=pop(lst);
+			if(lst==it){
+				lst=pop(lst);
+				it=lst;
+			}
 			else it=pop(it);
 		}
 		if(c=='i'){
 			scanf("%d %d %d", &p, &reval, &imval);
 			lst=insert(lst, p, reval, imval);
 		}
+		if(c=='s') swap(&lst, &it);
 		if(!empty(lst) && empty(it)) it=lst;
 		print(lst, it);
 	}
