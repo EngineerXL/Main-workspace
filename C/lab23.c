@@ -66,8 +66,16 @@ void print(node* cur, int d){
 
 void treecount(node* cur, int *treedeg, int *count, int curdegree){
 	if(cur==NULL) return;
-	treecount(cur->son, treedeg, count, 1);
-	treecount(cur->bro, treedeg, count, curdegree+1);
+	treecount(cur->son, treedeg, count, 0);
+	treecount(cur->bro, treedeg, count, 0);
+	if(cur->son!=NULL){
+		curdegree=1;
+		node* tmp=cur->son;
+		while(tmp->bro!=NULL){
+			curdegree++;
+			tmp=tmp->bro;
+		}
+	}
 	if(curdegree==*treedeg) (*count)++;
 	if(curdegree>*treedeg){
 		*treedeg=curdegree;
@@ -113,7 +121,7 @@ signed main(){
 		}
 		if(c=='c'){
 			treedeg=0, count=0;
-			treecount(root, &treedeg, &count, 1);
+			treecount(root, &treedeg, &count, 0);
 			printf("%d %d\n", treedeg, count);
 		}
 		if(c=='p') print(root, 0);

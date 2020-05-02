@@ -100,13 +100,27 @@ void swap(list** lst, list** it){
 	*lst=begin;
 }
 
+void help(){
+	printf("h - show this message\n");
+	printf("f - go to the first element\n");
+	printf("n - go to the next element\n");
+	printf("a - insert element next to the curent ones\n");
+	printf("l - print length of the list\n");
+	printf("p - pop curent element\n");
+	printf("i - insert element by position\n");
+	printf("s - swap elements\n");
+}
+
 signed main(){
 	list* lst=NULL;
 	list* it=lst;
 	char c;
 	int p, reval, imval;
+	help();
 	while(scanf("%c", &c)>0){
 		if(c==' ' || c=='\n' || c=='\t') continue;
+		if(c=='h') help();
+		if(c=='f') it=lst;
 		if(c=='n') it=next(it);
 		if(c=='a'){
 			scanf("%d %d", &reval, &imval);

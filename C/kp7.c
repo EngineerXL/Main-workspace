@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 const double e0=1e-6;
 
@@ -82,7 +83,7 @@ void print_matrix(vectorInt *vi, vectorField *vf, int n, int m){
 	}
 }
 
-double abs(double x){
+double myabs(double x){
 	if(x<e0) return -x;
 	else return x;
 }
@@ -99,7 +100,7 @@ int main(){
 		bool isNull=true;
 		for(int j=0; j<m; j++){
 			scanf("%lf", &x);
-			if(abs(x)>e0){
+			if(myabs(x)>e0){
 				if(isNull) vi_push_back(&a, b.n);
 				if(isNull==false) b.data[b.n-1].next=b.n;
 				isNull=false;
@@ -115,13 +116,13 @@ int main(){
 	double prevMaxElem=1e9+7, lastMaxElem=0;
 	int prevCol=-1, lastCol=-1;
 	for(int i=0; i<b.n; i++){
-		if(abs(b.data[i].value)-abs(lastMaxElem)>e0){
+		if(myabs(b.data[i].value)-myabs(lastMaxElem)>e0){
 					lastMaxElem=b.data[i].value;
 					prevMaxElem=1e9+7;
 					lastCol=b.data[i].index;
 					prevCol=-1;
 				}
-				if(abs(abs(b.data[i].value)-abs(lastMaxElem))<e0){
+				if(myabs(myabs(b.data[i].value)-myabs(lastMaxElem))<e0){
 					if(b.data[i].index>lastCol){
 						prevMaxElem=lastMaxElem;
 						lastMaxElem=b.data[i].value;
@@ -134,7 +135,7 @@ int main(){
 						}
 					}
 				}
-		printf("%d %lf %d %lf\n", lastCol, lastMaxElem, prevCol, prevMaxElem);
+		//printf("%d %lf %d %lf\n", lastCol, lastMaxElem, prevCol, prevMaxElem);
 	}
 	if(prevCol==-1){
 		prevCol=lastCol;
