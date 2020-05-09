@@ -83,13 +83,23 @@ void treecount(node* cur, int *treedeg, int *count, int curdegree){
 	}
 }
 
+void help(){
+	printf("h - show this message\n");
+	printf("e - erase vertex by path\n");
+	printf("i - insert vertex by path\n");
+	printf("c - count amount of vertexes with max degree\n");
+	printf("p - print all tree\n");
+}
+
 signed main(){
 	int reval, imval, n, treedeg, count;
 	char c;
 	char* path=NULL;
 	node* root=NULL;
+	help();
 	while(scanf("%c", &c)>0){
 		if(c==' ' || c=='\n' || c=='\t') continue;
+		if(c=='h') help();
 		if(c=='i'){
 			scanf("%d %d", &reval, &imval);
 			n=0;
