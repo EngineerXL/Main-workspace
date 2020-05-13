@@ -1,0 +1,16 @@
+all: lab26.out
+
+lab26.out: lab26.o sort.o dequeue.o
+	gcc lab26.o sort.o dequeue.o -o lab26.out
+
+dequeue.o:
+	gcc -c dequeue.c
+
+sort.o: dequeue.o
+	gcc -c sort.c
+
+lab26.o:
+	gcc -c lab26.c
+
+clean:
+	rm -rf *.o lab26.out
