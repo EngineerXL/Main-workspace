@@ -63,23 +63,17 @@ bool check_reverse_sorted(field* arr, int n) {
 void find(field* arr, int n, int num) {
 	if(check_sorted(arr, n) == false)
 		return;
-	int l = 0, r = n;
+	int l = -1, r = n - 1;
 	while(l + 1 < r) {
 		int m = (l + r) / 2;
-		if(arr[m].key > num)
-			r = m;
-		else
+		if(arr[m].key < num)
 			l = m;
+		else
+			r = m;
 	}
-	if(arr[l].key == num) {
-		while(arr[l].key == num)
-			l--;
-		l++;
-		while(arr[l].key == num) {
-			printf("%d ", arr[l].key);
-			print(&arr[l].value);
-			l++;
-		}
+	if(arr[r].key == num) {
+		printf("%d ", arr[r].key);
+		print(&arr[r].value);
 	}
 }
 
