@@ -71,9 +71,10 @@ void find(field* arr, int n, int num) {
 		else
 			r = m;
 	}
-	if(arr[r].key == num) {
+	while(arr[r].key == num) {
 		printf("%d ", arr[r].key);
 		print(&arr[r].value);
+		r++;
 	}
 }
 
